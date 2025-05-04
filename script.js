@@ -1,99 +1,154 @@
-// Funções para a página index.html
+/**
+ * Sistema de Gerenciamento de Eventos da Casa Atos
+ * Este arquivo contém todas as funcionalidades JavaScript do sistema,
+ * incluindo o gerenciamento de eventos, inscrições e área administrativa.
+ */
+
+/**
+ * Página Inicial - Funções relacionadas à exibição dos eventos na página principal
+ */
+
+// Carrega e exibe os eventos disponíveis na página inicial
 function carregarEventos() {
     const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
     const eventosContainer = document.getElementById("eventosContainer");
 
-    eventosContainer.innerHTML = eventos.length === 0 ? "<p>Nenhum evento disponível.</p>" : "";
+    // Se não houver eventos, mostra uma mensagem amigável
+    if (eventos.length === 0) {
+        eventosContainer.innerHTML = `
+            <div class="no-events">
+                <i class="fas fa-calendar-times" style="font-size: 3rem; color: #ff9800; margin-bottom: 15px;"></i>
+                <p>Ainda não temos eventos disponíveis. Volte em breve!</p>
+            </div>
+        `;
+        return;
+    }
 
+    // Limpa o container antes de adicionar os eventos
+    eventosContainer.innerHTML = "";
+
+    // Cria os cards para cada evento
     eventos.forEach((evento, index) => {
         eventosContainer.innerHTML += `
             <div class="evento-card">
-                <h3>${evento.nome} <span onclick="mostrarDescricao(${index})" class="descricao-icone">ℹ️</span></h3>
-                <p class="data">${formatarData(evento.data)}</p>
-                <p class="horario-local">🕒 ${evento.horario} | 📍 ${evento.local}</p>
-                <button onclick="inscreverEvento('${evento.nome}')">Inscrever-se</button>
-                <div id="descricao-${index}" class="descricao-evento" style="display: none;">
-                    <p>${evento.descricao}</p>
+                <div class="evento-header">
+                    <h3>${evento.nome} <span onclick="mostrarDescricao(${index})" class="descricao-icone">
+                        <i class="fas fa-info-circle"></i>
+                    </span></h3>
                 </div>
+                <p class="data"><i class="fas fa-calendar-day"></i> ${formatarData(evento.data)}</p>
+                <div class="horario-local">
+                    <span><i class="far fa-clock"></i> ${evento.horario}</span>
+                    <span><i class="fas fa-map-marker-alt"></i> ${evento.local}</span>
+                </div>
+                <div id="descricao-${index}" class="descricao-evento" style="display: none;">
+                    <p><i class="fas fa-align-left"></i> ${evento.descricao}</p>
+                </div>
+                <button onclick="inscreverEvento('${evento.nome}')">
+                    <i class="fas fa-user-plus"></i> Participar deste Evento
+                </button>
             </div>
         `;
     });
 }
 
+// Formata a data para o formato brasileiro com dia da semana
 function formatarData(data) {
     const partes = data.split("-");
     const dataObj = new Date(`${partes[0]}-${partes[1]}-${partes[2]}`);
-    return dataObj.toLocaleDateString("pt-BR", { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    return dataObj.toLocaleDateString("pt-BR", { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    });
 }
 
+// Controla a exibição da descrição do evento ao clicar no ícone de informação
 function mostrarDescricao(index) {
     const descricao = document.getElementById(`descricao-${index}`);
     descricao.style.display = descricao.style.display === "none" ? "block" : "none";
 }
 
+// Redireciona para a página de inscrição com o evento selecionado
 function inscreverEvento(eventoNome) {
     window.location.href = `cadastro.html?evento=${encodeURIComponent(eventoNome)}`;
 }
 
-// Funções para validação de CPF
+/**
+ * Validação de CPF
+ * Implementa a lógica completa de validação de CPF seguindo as regras da Receita Federal
+ */
 function validarCPF(cpf) {
+    // Remove caracteres não numéricos
     cpf = cpf.replace(/[^\d]+/g, '');
     
+    // Verifica se tem 11 dígitos
     if (cpf.length !== 11) return false;
     
-    // Elimina CPFs inválidos conhecidos
+    // Verifica CPFs com números repetidos (ex: 111.111.111-11)
     if (/^(\d)\1{10}$/.test(cpf)) return false;
     
-    // Valida 1o dígito
-    let add = 0;
+    // Validação do primeiro dígito verificador
+    let soma = 0;
     for (let i = 0; i < 9; i++) {
-        add += parseInt(cpf.charAt(i)) * (10 - i);
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
     }
-    let rev = 11 - (add % 11);
-    if (rev === 10 || rev === 11) rev = 0;
-    if (rev !== parseInt(cpf.charAt(9))) return false;
+    let digito1 = 11 - (soma % 11);
+    if (digito1 === 10 || digito1 === 11) digito1 = 0;
+    if (digito1 !== parseInt(cpf.charAt(9))) return false;
     
-    // Valida 2o dígito
-    add = 0;
+    // Validação do segundo dígito verificador
+    soma = 0;
     for (let i = 0; i < 10; i++) {
-        add += parseInt(cpf.charAt(i)) * (11 - i);
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
     }
-    rev = 11 - (add % 11);
-    if (rev === 10 || rev === 11) rev = 0;
-    if (rev !== parseInt(cpf.charAt(10))) return false;
+    let digito2 = 11 - (soma % 11);
+    if (digito2 === 10 || digito2 === 11) digito2 = 0;
+    if (digito2 !== parseInt(cpf.charAt(10))) return false;
     
     return true;
 }
 
-// Funções para a página admin.html
+/**
+ * Área Administrativa - Funções para gerenciamento de eventos e usuários
+ */
+
+// Valida o login do administrador
 function validarLogin(event) {
     event.preventDefault();
     const senhaDigitada = document.getElementById("senha").value;
-    const senhaCorreta = "0000";
+    const senhaCorreta = "0000"; // Senha padrão do administrador
 
     if (senhaDigitada === senhaCorreta) {
         window.location.href = "dashboard.html";
     } else {
-        document.getElementById("erroSenha").textContent = "❌ Senha incorreta. Tente novamente.";
+        document.getElementById("erroSenha").textContent = "❌ Senha incorreta. Por favor, tente novamente.";
     }
 }
 
-// Funções para a página dashboard.html
+// Cadastra um novo evento no sistema
 function cadastrarEvento() {
+    // Coleta os dados do formulário
     const nome = document.getElementById("nomeEvento").value;
     const data = document.getElementById("dataEvento").value;
     const horario = document.getElementById("horarioEvento").value;
     const local = document.getElementById("localEvento").value;
     const descricao = document.getElementById("descricaoEvento").value;
 
+    // Salva o novo evento
     const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
     eventos.push({ nome, data, horario, local, descricao });
-
     localStorage.setItem("eventos", JSON.stringify(eventos));
-    alert("Evento cadastrado com sucesso!");
+
+    alert("✅ Evento cadastrado com sucesso!");
 }
 
-// Funções para a página inscritos.html
+/**
+ * Gerenciamento de Inscritos - Funções para listar e gerenciar participantes
+ */
+
+// Carrega a lista de eventos no painel administrativo
 function carregarEventosAdmin() {
     const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
     const listaEventos = document.getElementById("listaEventos");
@@ -129,6 +184,7 @@ function carregarEventosAdmin() {
     });
 }
 
+// Carrega e exibe a lista de inscritos por evento
 function carregarInscritos() {
     const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
     const inscritos = JSON.parse(localStorage.getItem("inscritos")) || [];
@@ -189,11 +245,15 @@ function carregarInscritos() {
     }
 }
 
+// Formata o CPF para exibição (000.000.000-00)
 function formatarCPF(cpf) {
     cpf = cpf.replace(/[^\d]/g, '');
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
+/**
+ * Exportação de Dados - Função para exportar lista de inscritos para Excel
+ */
 function exportarParaExcel() {
     const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
     const inscritos = JSON.parse(localStorage.getItem("inscritos")) || [];
@@ -234,6 +294,11 @@ function exportarParaExcel() {
     XLSX.writeFile(wb, `Lista_Inscritos_${dataAtual}.xlsx`);
 }
 
+/**
+ * Gerenciamento de Eventos - Funções para edição e exclusão
+ */
+
+// Remove um evento e seus inscritos
 function excluirEvento(index) {
     const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
     const eventoRemovido = eventos[index].nome;
@@ -249,6 +314,7 @@ function excluirEvento(index) {
     carregarInscritos();
 }
 
+// Permite editar os dados de um evento
 function editarEvento(index) {
     const eventos = JSON.parse(localStorage.getItem("eventos")) || [];
     const evento = eventos[index];
@@ -272,7 +338,7 @@ function editarEvento(index) {
     }
 }
 
-// Função para limpar evento específico
+// Remove um evento específico do sistema
 function limparEventoEspecifico(nomeEvento) {
     // Remover o evento específico
     let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
@@ -285,7 +351,10 @@ function limparEventoEspecifico(nomeEvento) {
     localStorage.setItem("inscritos", JSON.stringify(inscritos));
 }
 
-// Função para inicialização das páginas
+/**
+ * Inicialização do Sistema
+ * Configura os eventos e comportamentos quando a página é carregada
+ */
 document.addEventListener('DOMContentLoaded', function() {
     // Inicialização para página de cadastro
     const cadastroForm = document.getElementById('cadastroForm');

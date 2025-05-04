@@ -1,24 +1,47 @@
 <!DOCTYPE html>
+<!-- 
+  Sistema de Eventos Casa Atos
+  Página de Acesso Administrativo
+  
+  Esta página controla o acesso à área administrativa do sistema.
+  Recursos:
+  - Login seguro com senha
+  - Feedback visual de erros
+  - Redirecionamento automático após autenticação
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Casa Atos</title>
+  <!-- Estilos da aplicação -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a href="index.html" class="botao-voltar">← Voltar à Tela Inicial</a>
+  <!-- Link de retorno para usuários não autorizados -->
+  <a href="index.html" class="botao-voltar">← Voltar à Página Inicial</a>
+
   <div class="container">
     <h2>Área Administrativa</h2>
 
+    <!-- Formulário de autenticação -->
     <form id="loginForm">
-      <label for="senha">Digite a senha:</label>
-      <input type="password" id="senha" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
+      <label for="senha">Digite a senha de acesso:</label>
+      <input 
+        type="password" 
+        id="senha" 
+        placeholder="Digite a senha administrativa" 
+        required
+        autocomplete="current-password">
+      
+      <button type="submit">Acessar Sistema</button>
+      
+      <!-- Área para mensagens de erro -->
       <p id="erroSenha" class="mensagem-erro"></p>
     </form>
   </div>
 
+  <!-- Scripts da aplicação -->
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,25 +1,58 @@
 <!DOCTYPE html>
+<!-- 
+  Sistema de Eventos Casa Atos
+  Página Inicial (Landing Page)
+  
+  Esta é a página principal do sistema onde os visitantes podem:
+  - Ver todos os eventos disponíveis
+  - Ler detalhes dos eventos
+  - Se inscrever nos eventos de interesse
+  - Acessar a área administrativa (se autorizado)
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eventos Casa Atos</title>
+  <!-- Fontes e ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Cabeçalho com logo e navegação -->
+  <header class="main-header">
+    <nav class="nav-container">
+      <div class="logo-container">
+        <img src="logo2.png" alt="Logo Casa Atos" class="logo-img">
+        <h1>Casa Atos</h1>
+      </div>
+      <a href="admin.html" class="botao-admin"><i class="fas fa-user-shield"></i> Área Administrativa</a>
+    </nav>
+  </header>
 
-  <!-- Botão de Administrador no canto superior direito -->
-  <a href="admin.html" class="botao-admin">Sou Administrador</a>
-
-  <div class="container">
-    <h2>Bem-vindo aos Eventos Casa Atos</h2>
-
-    <div class="evento-container">
-      <h3>Eventos Disponíveis:</h3>
-      <div id="eventosContainer" class="eventos-container"></div>
+  <!-- Seção principal com mensagem de boas-vindas -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h2>Bem-vindo aos Eventos Casa Atos</h2>
+      <p class="hero-description">Participe dos nossos eventos e faça parte desta comunidade</p>
     </div>
   </div>
 
+  <!-- Lista de eventos disponíveis -->
+  <main class="container">
+    <section class="eventos-section">
+      <div class="section-header">
+        <h3><i class="fas fa-calendar-alt"></i> Eventos Disponíveis</h3>
+        <p class="section-description">Confira nossos próximos eventos e garanta sua participação</p>
+      </div>
+      <!-- Container dinâmico para os cards de eventos -->
+      <div id="eventosContainer" class="eventos-container"></div>
+    </section>
+  </main>
+
+  <!-- Scripts -->
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,33 +1,56 @@
 <!DOCTYPE html>
+<!-- 
+  Sistema de Eventos Casa Atos
+  Página de Cadastro de Participantes
+  
+  Esta página permite que os visitantes se inscrevam em eventos específicos.
+  Recursos:
+  - Formulário intuitivo de cadastro
+  - Validação de CPF em tempo real
+  - Feedback visual de sucesso/erro
+  - Máscara automática no campo de CPF
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro - Eventos Casa Atos</title>
+  <!-- Estilos da aplicação -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h2>Cadastro de Participante</h2>
 
+    <!-- Formulário de inscrição com validação -->
     <form id="cadastroForm">
+      <!-- Campo Nome -->
       <label for="nome">Nome completo:</label>
-      <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
 
+      <!-- Campo Idade -->
       <label for="idade">Idade:</label>
-      <input type="number" id="idade" name="idade" placeholder="Idade" required min="1">
+      <input type="number" id="idade" name="idade" placeholder="Digite sua idade" required min="1">
 
+      <!-- Campo CPF com máscara e validação -->
       <label for="cpf">CPF:</label>
       <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
-      <div id="cpfError" class="error-message">CPF inválido. Por favor, insira um CPF válido.</div>
+      <div id="cpfError" class="error-message">CPF inválido. Por favor, verifique os números digitados.</div>
 
-      <button type="submit">Cadastrar</button>
+      <!-- Botão de envio -->
+      <button type="submit">Confirmar Inscrição</button>
     </form>
 
-    <div id="mensagemSucesso" class="mensagem-sucesso">✅ Inscrição efetuada com sucesso!</div>
-    <a href="index.html" class="botao-voltar">← Voltar à Tela Inicial</a>
+    <!-- Mensagem de feedback após inscrição -->
+    <div id="mensagemSucesso" class="mensagem-sucesso">
+      ✅ Inscrição realizada com sucesso! Redirecionando...
+    </div>
+
+    <!-- Link de retorno -->
+    <a href="index.html" class="botao-voltar">← Voltar à Página Inicial</a>
   </div>
 
+  <!-- Scripts da aplicação -->
   <script src="script.js"></script>
 </body>
 </html>

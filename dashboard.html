@@ -1,43 +1,79 @@
 <!DOCTYPE html>
+<!-- 
+  Sistema de Eventos Casa Atos
+  Painel de Controle Administrativo
+  
+  Esta é a área administrativa onde os gestores podem:
+  - Cadastrar novos eventos
+  - Definir data, hora e local
+  - Adicionar descrições detalhadas
+  - Acessar lista de inscritos
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Administração</title>
+  <!-- Estilos da aplicação -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="container">
     <h2>Painel do Administrador</h2>
 
+    <!-- Formulário de cadastro de eventos -->
     <h3>Cadastrar Novo Evento</h3>
     <form id="eventoForm">
+      <!-- Nome do evento -->
       <label for="nomeEvento">Nome do Evento:</label>
-      <input type="text" id="nomeEvento" placeholder="Nome do Evento" required>
+      <input 
+        type="text" 
+        id="nomeEvento" 
+        placeholder="Ex: Culto de Jovens, Encontro de Casais..." 
+        required>
 
+      <!-- Data do evento -->
       <label for="dataEvento">Data:</label>
-      <input type="date" id="dataEvento" required>
+      <input 
+        type="date" 
+        id="dataEvento" 
+        required 
+        min="<?php echo date('Y-m-d'); ?>">
 
+      <!-- Horário do evento -->
       <label for="horarioEvento">Horário:</label>
-      <input type="time" id="horarioEvento" required>
+      <input 
+        type="time" 
+        id="horarioEvento" 
+        required 
+        title="Escolha o horário do evento">
 
+      <!-- Local do evento -->
       <label for="localEvento">Local:</label>
-      <input type="text" id="localEvento" placeholder="Local do Evento" required>
+      <input 
+        type="text" 
+        id="localEvento" 
+        placeholder="Ex: Salão Principal, Auditório..." 
+        required>
 
+      <!-- Descrição detalhada -->
       <label for="descricaoEvento">Descrição:</label>
-      <textarea id="descricaoEvento" class="campo-descricao" placeholder="Digite uma descrição detalhada do evento..." required></textarea>
+      <textarea 
+        id="descricaoEvento" 
+        class="campo-descricao" 
+        placeholder="Detalhe o evento: objetivo, público-alvo, programação..." 
+        required></textarea>
 
+      <!-- Botão de cadastro -->
       <button type="submit">Cadastrar Evento</button>
     </form>
 
-    <!-- Botão restaurado para acessar a lista de inscritos -->
+    <!-- Links de navegação -->
     <a href="inscritos.html" class="botao">Ver Lista de Inscritos</a>
-
-    <a href="index.html" class="botao-voltar">← Voltar à Tela Inicial</a>
+    <a href="index.html" class="botao-voltar">← Voltar à Página Inicial</a>
   </div>
 
+  <!-- Scripts da aplicação -->
   <script src="script.js"></script>
-
 </body>
 </html>

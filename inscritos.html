@@ -1,28 +1,50 @@
 <!DOCTYPE html>
+<!-- 
+  Sistema de Eventos Casa Atos
+  Gerenciamento de Inscritos
+  
+  Esta página permite que os administradores:
+  - Visualizem todos os eventos cadastrados
+  - Gerenciem os eventos (editar/excluir)
+  - Vejam a lista de inscritos por evento
+  - Exportem os dados para Excel
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Eventos e Inscritos</title>
+  <!-- Estilos da aplicação -->
   <link rel="stylesheet" href="style.css">
+  <!-- Biblioteca para exportação Excel -->
   <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 <body>
-  <a href="index.html" class="botao-voltar">← Voltar à Tela Inicial</a>
+  <!-- Navegação -->
+  <a href="index.html" class="botao-voltar">← Voltar à Página Inicial</a>
+
   <div class="container">
     <h2>Gerenciamento de Eventos e Inscritos</h2>
 
+    <!-- Seção de eventos -->
     <h3>Lista de Eventos</h3>
-    <div id="listaEventos" class="lista-eventos-container"></div>
+    <div id="listaEventos" class="lista-eventos-container">
+      <!-- Lista dinâmica de eventos será inserida aqui via JavaScript -->
+    </div>
 
+    <!-- Seção de inscritos -->
     <h3>Lista de Inscritos por Evento</h3>
-    <div id="listaInscritos" class="lista-inscritos-container"></div>
+    <div id="listaInscritos" class="lista-inscritos-container">
+      <!-- Lista dinâmica de inscritos será inserida aqui via JavaScript -->
+    </div>
 
+    <!-- Botão de exportação -->
     <button id="exportarExcel" class="botao-exportar">
       📥 Exportar Lista para Excel
     </button>
   </div>
 
+  <!-- Scripts da aplicação -->
   <script src="script.js"></script>
 </body>
 </html>
