@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Administração</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Painel do Administrador</h2>
+
+    <h3>Cadastrar Novo Evento</h3>
+    <form id="eventoForm">
+      <label for="nomeEvento">Nome do Evento:</label>
+      <input type="text" id="nomeEvento" placeholder="Nome do Evento" required>
+
+      <label for="dataEvento">Data:</label>
+      <input type="date" id="dataEvento" required>
+
+      <label for="horarioEvento">Horário:</label>
+      <input type="time" id="horarioEvento" required>
+
+      <label for="localEvento">Local:</label>
+      <input type="text" id="localEvento" placeholder="Local do Evento" required>
+
+      <label for="descricaoEvento">Descrição:</label>
+      <textarea id="descricaoEvento" class="campo-descricao" placeholder="Digite uma descrição detalhada do evento..." required></textarea>
+
+      <button type="submit">Cadastrar Evento</button>
+    </form>
+
+    <!-- Botão restaurado para acessar a lista de inscritos -->
+    <a href="inscritos.html" class="botao">Ver Lista de Inscritos</a>
+
+    <a href="index.html" class="botao-voltar">← Voltar à Tela Inicial</a>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

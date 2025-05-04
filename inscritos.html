@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Eventos e Inscritos</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <a href="index.html" class="botao-voltar">← Voltar à Tela Inicial</a>
+  <div class="container">
+    <h2>Gerenciamento de Eventos e Inscritos</h2>
+
+    <h3>Lista de Eventos</h3>
+    <div id="listaEventos" class="lista-eventos-container"></div>
+
+    <h3>Lista de Inscritos por Evento</h3>
+    <div id="listaInscritos" class="lista-inscritos-container"></div>
+
+    <button id="exportarExcel" class="botao-exportar">
+      📥 Exportar Lista para Excel
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
